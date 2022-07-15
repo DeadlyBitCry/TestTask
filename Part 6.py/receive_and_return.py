@@ -1,11 +1,13 @@
-def display(message) : 
+# Принимай - возвращай 
+# Демонстрирует параметры и возвращаемые значения 
+def display(message): 
     print(message) 
-def give_me_five() : 
+def give_me_five(): 
     five = 5 
     return five
-def ask_yes_no(question) :
+def ask_yes_no(question):
     response = None
-    while response not in ("у", "n") : 
+    while response not in ("y", "n"): 
         response = input(question).lower() 
     return response 
 display("Baм сообщение. \n") 

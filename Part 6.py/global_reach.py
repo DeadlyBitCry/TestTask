@@ -1,3 +1,5 @@
+# Доступ отовсюду 
+# Демонстрирует работу с глобальными переменными
 def read_global(): 
     print( "В области видимости функции read_global () значение value равно " + str(value)) 
 def shadow_global(): 
