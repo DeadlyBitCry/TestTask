@@ -2,12 +2,13 @@
 #Игра на выбор правильного варианта ответа. 
 # вопросы которой читаются из текстового файла 
 
-import sys
+from re import S
+import sys, pickle
 
 def open_file(file_name, mode):
     """Open a file."""
     try:
-        the_file = open(file_name, mode, encoding='Windows-1251')
+        the_file = open(file_name, mode)
     except IOError as e:
         print("Невозможно открыть файл", file_name, "Работа программы будет завершена.\n", e)
         input("\n\nНажмите на 'Enter', чтобы выйти.")
@@ -30,6 +31,7 @@ def next_block(the_file):
     answers = []
     for i in range(4):
         answers.append(next_line(the_file))
+    nominal = next_line((the_file))
     
     correct = next_line(the_file)
     if correct:
@@ -37,13 +39,12 @@ def next_block(the_file):
 
     explanation = next_line(the_file)
 
-    return category, question, answers, correct, explanation
+    return category, question, answers, correct, explanation, nominal
 
 def welcome(title):
     """Приветствует игрока и сообщает тему игры."""
     print("Дoбpo пожаловать в игру 'Викторина'!\n")
     print("\t\t\t", title, "\n")
-
 
 def main():
     trivia_file = open_file("Part 7/trivia_file1.txt", "r")
@@ -52,7 +53,7 @@ def main():
     score = 0
 
     #  извлечение первого блока 
-    category, question, answers, correct, explanation = next_block(trivia_file)
+    category, question, answers, correct, explanation, nominal = next_block(trivia_file)
     while category:
         # вывод вопроса на экран 
         print(category)
@@ -61,25 +62,33 @@ def main():
             print("\t", i + 1, "-", answers[i])
             
         # get an answer
-        answer = input("Baш ответ: ")
+        answer = input("Your answer: ")
         
         # check answer
         if answer == correct:
-            print("\nДа!", end=" ")
-            score += 1
+            print("\nYes!", end=" ")
+            score += int(nominal)
         else:
-            print("\nНет.", end=" ")
+            print("\nNo.", end=" ")
         print(explanation)
         print("Score:", score, "\n\n")
     
 
         # переход к следующему вопросу
-        category, question, answers, correct, explanation = next_block(trivia_file)
-
+        category, question, answers, correct, explanation, nominal = next_block(trivia_file)
     trivia_file.close()
 
-    print("Этo был последний вопрос!")
-    print("Нa вашем счету", score)
-
+    print("That was the last question!")
+    print("Your score is - ", score)
+    player_name = input("What's your name? ")
+    top_records =[score,player_name]
+    f = open("recs.dat","wb")
+    pickle.dump(top_records,f)
+    f.close
+    f = open("recs.dat","rb")
+    top_records = pickle.load(f)
+    print("Текущие рекорды:")
+    print(top_records)
+    f.close()
 main()
 input("\n\nHaжмитe Enter, чтобы выйти.")
