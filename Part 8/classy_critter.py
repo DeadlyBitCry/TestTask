@@ -5,7 +5,7 @@ class Critter(object):
     total = 0 
     @staticmethod 
     def status(): 
-        print("\nBcero зверюшек сейчас" + str(Critter.total)) 
+        print("\nBcero зверюшек сейчас " + str(Critter.total)) 
     def __init__ (self, name):
         print("Появилась на свет новая зверюшка!") 
         self.name = name 

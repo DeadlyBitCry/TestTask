@@ -12,7 +12,8 @@ class Critter(object):
     def __private_method(self): 
         print("Этo закрытый метод.") 
     def public_method(self): 
-        print("Этo открытый метод.") 
+        print("Этo открытый метод.")
+        # Закрытый метод можно вызвать с помощью открытого метода
         self.__private_method()
 # основная часть 
 crit = Critter(name ="Бобик" , mood="прекрасно") 
