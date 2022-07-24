@@ -40,6 +40,9 @@ class Critter(object):
         if self.boredom < 0: 
             self.boredom = 0 
         self.__pass_time()
+    def __str__(self):
+        print("Зверюшка имеет " + str(self.hunger) +" Голода")
+        print("И " + str(self.boredom) + " Скуки")
 def main(): 
     crit_name = input("Kaк вы назовете свою зверюшку?") 
     crit = Critter(crit_name)
@@ -65,7 +68,9 @@ def main():
             crit.eat() 
         # игра со зверюшкой 
         elif choice == "3": 
-            crit.play() 
+            crit.play()
+        elif choice == "cheatcode":
+            crit.__str__()
         # непонятный пользовательский ввод 
         else: 
             print( "Извините, в меню нет пункта " + choice)
